@@ -12,7 +12,7 @@ namespace ShoppingGuide.Helpers
         DbAccess db = new DbAccess();
         string tableName = "ACCOUNT";
 
-        AccountDbAccess()
+        public AccountDbAccess()
         {
             // Upon construction, reset dummy data.  Comment out to disable
             // resetting
