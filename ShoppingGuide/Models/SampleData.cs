@@ -6,9 +6,9 @@ using System.Data.Entity;
 
 namespace ShoppingGuide.Models
 {
-    public class SampleData : DropCreateDatabaseIfModelChanges<ShoppingGuideEntities>
+    public class SampleData : DropCreateDatabaseIfModelChanges<ShoppingGuideDB>
     {
-        protected override void Seed(ShoppingGuideEntities context)
+        protected override void Seed(ShoppingGuideDB context)
         {
             /*
             var objects = new List<Object>

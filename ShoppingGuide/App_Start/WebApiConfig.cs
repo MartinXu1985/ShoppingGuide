@@ -11,8 +11,8 @@ namespace ShoppingGuide
         {
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{username}/{password}",
-                defaults: new { id = RouteParameter.Optional }
+                routeTemplate: "api/{controller}/{id}",
+                defaults: new { controller = "Home", id = RouteParameter.Optional }
             );
         }
     }
