@@ -15,8 +15,9 @@ namespace ShoppingGuide
     {
         protected void Application_Start()
         {
-            Database.SetInitializer
-                (new ShoppingGuide.Models.SampleData());
+            System.Data.Entity.Database.SetInitializer(
+                new ShoppingGuide.Models.SampleData());
+            
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
