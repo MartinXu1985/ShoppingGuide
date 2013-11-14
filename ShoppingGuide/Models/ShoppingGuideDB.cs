@@ -10,5 +10,6 @@ namespace ShoppingGuide.Models
     public class ShoppingGuideDB : DbContext
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<Product> Product { get; set; }
     }
 }

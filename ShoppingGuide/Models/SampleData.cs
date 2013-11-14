@@ -22,6 +22,14 @@ namespace ShoppingGuide.Models
                 new Object { Variable = "value7" },
             };
             */
+            var Product = new List<Product>
+           {
+               new Product { Name = "desk", CategoryName = "Home", Price = 59.99, ProductUrl ="/content/"},
+               new Product { Name = "ball", CategoryName = "Sports", Price = 19.99, ProductUrl ="/content/"},
+               new Product { Name = "textbook", CategoryName = "Books", Price = 29.99, ProductUrl ="/content/"},
+               new Product { Name = "T-shirt", CategoryName = "Clothes", Price = 9.99, ProductUrl ="/content/"},
+               new Product { Name = "computer", CategoryName = "Electronics", Price = 599.99, ProductUrl ="/content/"},
+           };
         }
     }
 }
