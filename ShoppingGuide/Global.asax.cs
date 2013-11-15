@@ -6,6 +6,8 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Data.Entity;
+using ShoppingGuide.Models;
+using System.Web.Optimization;
 
 namespace ShoppingGuide
 {
@@ -15,14 +17,16 @@ namespace ShoppingGuide
     {
         protected void Application_Start()
         {
-            System.Data.Entity.Database.SetInitializer(
-                new ShoppingGuide.Models.SampleData());
+            System.Data.Entity.Database.SetInitializer(new DropCreateDatabaseAlways<ShoppingGuideDB>());
+            //System.Data.Entity.Database.SetInitializer(
+            //    new ShoppingGuide.Models.SampleData());
             
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
     }
 }
