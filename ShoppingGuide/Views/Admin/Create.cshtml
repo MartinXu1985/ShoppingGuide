@@ -1,0 +1,59 @@
+﻿@model ShoppingGuide.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Create User";
+}
+
+<p>
+    <ul class="nav nav-pills">
+      <li class="active"><a href="~/Admin/Users">User Management</a></li>
+      <li><a href="~/ProductManage">Product Management</a></li>
+    </ul>
+</p>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    <fieldset class="form-horizontal">
+        <legend>Create a new user.</legend>
+        <div class="form-group">
+            @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.PasswordFor(m => m.Password,  new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.PasswordFor(m => m.ConfirmPassword,  new { @class = "form-control" })
+            </div>
+        </div>
+         <div class="form-group">
+             @Html.Label("Select Role", new { @class = "col-md-2 control-label" })
+             <div class="col-md-10">
+                 <select name="RoleId" class="form-control">
+                     @foreach (var role in ViewBag.RoleId)
+                     {
+                         <option value="@role.Value">@role.Text</option>
+                     }
+                 </select>
+             </div>
+         </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </fieldset>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

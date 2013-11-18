@@ -17,6 +17,8 @@ namespace ShoppingGuide.Controllers
     {
         public UserManager<ApplicationUser> mUserManager { get; private set; }
         public RoleManager<IdentityRole>    mRoleManager { get; private set; }
+        public static string [] roles = {"admin", "user"};
+        public enum roles_enum {ADMIN_ROLE=0, USER_ROLE};
 
         public AccountController()
             : this(new ApplicationDbContext())
@@ -44,25 +46,35 @@ namespace ShoppingGuide.Controllers
         {
             string username = "admin";
 
-            // Passwords must be at least 6 characeters, else it won't work.
+            // Passwords must be at least 6 characters, else it won't work.
             string password = "123456";
-            string role = "admin";
+            string admin_role = roles[(int)roles_enum.ADMIN_ROLE];
+            string user_role = roles[(int)roles_enum.USER_ROLE];
 
             // Create Role Admin if it does not exist
-            if (!mRoleManager.RoleExists(role))
+            if (!mRoleManager.RoleExists(admin_role))
             {
-                var roleresult = mRoleManager.Create(new IdentityRole(role));
+                var roleresult = mRoleManager.Create(new IdentityRole(admin_role));
+            }
+
+            // Create Role User if it does not exist
+            if (!mRoleManager.RoleExists(user_role))
+            {
+                var roleresult = mRoleManager.Create(new IdentityRole(user_role));
             }
 
             // Create user=Admin with password=12345
             var user = new ApplicationUser();
             user.UserName = username;
+
             var adminresult = mUserManager.Create(user, password);
 
             //Add User Admin to Role Admin
             if (adminresult.Succeeded)
             {
-                var result = mUserManager.AddToRole(user.Id, role);
+                // Add to both admin and user.
+                var result = mUserManager.AddToRole(user.Id, admin_role);
+                result = mUserManager.AddToRole(user.Id, user_role);
             }
         }
 
@@ -88,6 +100,17 @@ namespace ShoppingGuide.Controllers
                 if (user != null)
                 {
                     await SignInAsync(user, model.RememberMe);
+
+                    // Login based on admin or customer. !#!
+                    foreach (IdentityUserRole role in user.Roles.ToList())
+                    {
+                        if ("admin".Equals(role.Role.Name))
+                        {
+                            returnUrl = "~/admin";
+                            break;
+                        }
+                    }
+
                     return RedirectToLocal(returnUrl);
                 }
                 else
@@ -121,6 +144,9 @@ namespace ShoppingGuide.Controllers
                 var result = await mUserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    // Add to user role
+                    mUserManager.AddToRole(user.Id, roles[(int)roles_enum.USER_ROLE]);
+
                     await SignInAsync(user, isPersistent: false);
                     return RedirectToAction("Index", "Home");
                 }

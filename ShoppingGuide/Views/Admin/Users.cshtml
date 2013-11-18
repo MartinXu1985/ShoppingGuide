@@ -1,0 +1,60 @@
+﻿@model IEnumerable<ShoppingGuide.Models.ApplicationUser>
+@{
+    ViewBag.Title = "User Management";
+}
+
+<p>
+    <ul class="nav nav-pills">
+      <li class="active"><a href="~/Admin/Users">User Management</a></li>
+      <li><a href="~/ProductManage">Product Management</a></li>
+    </ul>
+</p>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<div class="panel panel-default">
+    <div class="panel-heading"><b>Users</b></div>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Roles)
+                </th>
+                <th>
+                    Actions
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserName)
+                    </td>
+                    <td>
+                        @{
+                            int i = 1;
+                            foreach (var role in item.Roles)
+                            {
+                                @Html.DisplayFor(modelItem => role.Role.Name)
+
+                                if ((item.Roles.Count > 1) && 
+                                    (i++ != item.Roles.Count)){<i>, </i>}
+                            }
+                        }
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>

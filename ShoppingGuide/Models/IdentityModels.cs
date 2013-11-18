@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System.ComponentModel.DataAnnotations;
 
 namespace ShoppingGuide.Models
 {
@@ -9,7 +10,7 @@ namespace ShoppingGuide.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("ShoppingGuideDB")
+            : base("IdentityDB")
         {
         }
     }

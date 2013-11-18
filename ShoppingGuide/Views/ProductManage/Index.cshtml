@@ -1,10 +1,15 @@
 ﻿@model IEnumerable<ShoppingGuide.Models.Product>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Product Management";
 }
 
-<h2>Index</h2>
+<p>
+    <ul class="nav nav-pills">
+      <li><a href="~/Admin/Users">User Management</a></li>
+      <li class="active"><a href="~/ProductManage">Product Management</a></li>
+    </ul>
+</p>
 
 <p>
     @Html.ActionLink("Create New", "Create")

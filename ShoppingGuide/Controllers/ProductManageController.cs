@@ -13,7 +13,6 @@ namespace ShoppingGuide.Controllers
     public class ProductManageController : Controller
     {
         private ShoppingGuideDB db = new ShoppingGuideDB();
-
         //
         // GET: /ProductManage/
 
