@@ -17,10 +17,11 @@ namespace ShoppingGuide
     {
         protected void Application_Start()
         {
-            System.Data.Entity.Database.SetInitializer(new DropCreateDatabaseAlways<ShoppingGuideDB>());
-            //System.Data.Entity.Database.SetInitializer(
-            //    new ShoppingGuide.Models.SampleData());
-            
+            System.Data.Entity.Database.SetInitializer
+                (new DropCreateDatabaseAlways<ShoppingGuideDB>());
+            System.Data.Entity.Database.SetInitializer
+                (new DropCreateDatabaseAlways<ApplicationDbContext>());
+
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);

@@ -9,6 +9,7 @@ using ShoppingGuide.Models;
 
 namespace ShoppingGuide.Controllers
 {
+    [Authorize(Roles="admin")]
     public class ProductManageController : Controller
     {
         private ShoppingGuideDB db = new ShoppingGuideDB();

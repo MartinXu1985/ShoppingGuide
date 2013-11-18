@@ -15,17 +15,56 @@ namespace ShoppingGuide.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        public UserManager<ApplicationUser> mUserManager { get; private set; }
+        public RoleManager<IdentityRole>    mRoleManager { get; private set; }
+
         public AccountController()
-            : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
+            : this(new ApplicationDbContext())
         {
         }
 
-        public AccountController(UserManager<ApplicationUser> userManager)
+        public AccountController(ApplicationDbContext dbContext_)
+            : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(dbContext_)),
+                   new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(dbContext_)))
         {
-            UserManager = userManager;
         }
 
-        public UserManager<ApplicationUser> UserManager { get; private set; }
+        public AccountController(UserManager<ApplicationUser> userManager,
+                                 RoleManager<IdentityRole> roleManager)
+        {  
+            mUserManager = userManager;
+            mRoleManager = roleManager;   
+
+            // For testing purposes only!  Create a default admin.  Production
+            // code should not include this!..
+            createDefaultAdmin();
+        }
+
+        private void createDefaultAdmin()
+        {
+            string username = "admin";
+
+            // Passwords must be at least 6 characeters, else it won't work.
+            string password = "123456";
+            string role = "admin";
+
+            // Create Role Admin if it does not exist
+            if (!mRoleManager.RoleExists(role))
+            {
+                var roleresult = mRoleManager.Create(new IdentityRole(role));
+            }
+
+            // Create user=Admin with password=12345
+            var user = new ApplicationUser();
+            user.UserName = username;
+            var adminresult = mUserManager.Create(user, password);
+
+            //Add User Admin to Role Admin
+            if (adminresult.Succeeded)
+            {
+                var result = mUserManager.AddToRole(user.Id, role);
+            }
+        }
 
         //
         // GET: /Account/Login
@@ -45,7 +84,7 @@ namespace ShoppingGuide.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindAsync(model.UserName, model.Password);
+                var user = await mUserManager.FindAsync(model.UserName, model.Password);
                 if (user != null)
                 {
                     await SignInAsync(user, model.RememberMe);
@@ -79,7 +118,7 @@ namespace ShoppingGuide.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser() { UserName = model.UserName };
-                var result = await UserManager.CreateAsync(user, model.Password);
+                var result = await mUserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await SignInAsync(user, isPersistent: false);
@@ -102,7 +141,7 @@ namespace ShoppingGuide.Controllers
         public async Task<ActionResult> Disassociate(string loginProvider, string providerKey)
         {
             ManageMessageId? message = null;
-            IdentityResult result = await UserManager.RemoveLoginAsync(User.Identity.GetUserId(), new UserLoginInfo(loginProvider, providerKey));
+            IdentityResult result = await mUserManager.RemoveLoginAsync(User.Identity.GetUserId(), new UserLoginInfo(loginProvider, providerKey));
             if (result.Succeeded)
             {
                 message = ManageMessageId.RemoveLoginSuccess;
@@ -142,7 +181,7 @@ namespace ShoppingGuide.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+                    IdentityResult result = await mUserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
                     if (result.Succeeded)
                     {
                         return RedirectToAction("Manage", new { Message = ManageMessageId.ChangePasswordSuccess });
@@ -164,7 +203,7 @@ namespace ShoppingGuide.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    IdentityResult result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
+                    IdentityResult result = await mUserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
                     if (result.Succeeded)
                     {
                         return RedirectToAction("Manage", new { Message = ManageMessageId.SetPasswordSuccess });
@@ -203,7 +242,7 @@ namespace ShoppingGuide.Controllers
             }
 
             // Sign in the user with this external login provider if the user already has a login
-            var user = await UserManager.FindAsync(loginInfo.Login);
+            var user = await mUserManager.FindAsync(loginInfo.Login);
             if (user != null)
             {
                 await SignInAsync(user, isPersistent: false);
@@ -237,7 +276,7 @@ namespace ShoppingGuide.Controllers
             {
                 return RedirectToAction("Manage", new { Message = ManageMessageId.Error });
             }
-            var result = await UserManager.AddLoginAsync(User.Identity.GetUserId(), loginInfo.Login);
+            var result = await mUserManager.AddLoginAsync(User.Identity.GetUserId(), loginInfo.Login);
             if (result.Succeeded)
             {
                 return RedirectToAction("Manage");
@@ -266,10 +305,10 @@ namespace ShoppingGuide.Controllers
                     return View("ExternalLoginFailure");
                 }
                 var user = new ApplicationUser() { UserName = model.UserName };
-                var result = await UserManager.CreateAsync(user);
+                var result = await mUserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
-                    result = await UserManager.AddLoginAsync(user.Id, info.Login);
+                    result = await mUserManager.AddLoginAsync(user.Id, info.Login);
                     if (result.Succeeded)
                     {
                         await SignInAsync(user, isPersistent: false);
@@ -304,17 +343,17 @@ namespace ShoppingGuide.Controllers
         [ChildActionOnly]
         public ActionResult RemoveAccountList()
         {
-            var linkedAccounts = UserManager.GetLogins(User.Identity.GetUserId());
+            var linkedAccounts = mUserManager.GetLogins(User.Identity.GetUserId());
             ViewBag.ShowRemoveButton = HasPassword() || linkedAccounts.Count > 1;
             return (ActionResult)PartialView("_RemoveAccountPartial", linkedAccounts);
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing && UserManager != null)
+            if (disposing && mUserManager != null)
             {
-                UserManager.Dispose();
-                UserManager = null;
+                mUserManager.Dispose();
+                mUserManager = null;
             }
             base.Dispose(disposing);
         }
@@ -334,7 +373,7 @@ namespace ShoppingGuide.Controllers
         private async Task SignInAsync(ApplicationUser user, bool isPersistent)
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-            var identity = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+            var identity = await mUserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
             AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);
         }
 
@@ -348,7 +387,7 @@ namespace ShoppingGuide.Controllers
 
         private bool HasPassword()
         {
-            var user = UserManager.FindById(User.Identity.GetUserId());
+            var user = mUserManager.FindById(User.Identity.GetUserId());
             if (user != null)
             {
                 return user.PasswordHash != null;
