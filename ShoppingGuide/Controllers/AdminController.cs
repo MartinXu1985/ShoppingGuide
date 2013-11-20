@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using ShoppingGuide.Models;
+using System.Net;
 
 namespace ShoppingGuide.Controllers
 {
@@ -93,6 +94,135 @@ namespace ShoppingGuide.Controllers
         {
             return AccountController.roles.Select((r, index) => 
                 new SelectListItem { Text = r, Value = index.ToString() });
+        }
+
+        //
+        // GET: /Admin/Edit/1
+        public async Task<ActionResult> Edit(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ViewBag.RoleId = roleStringArrayToListItem();
+
+            var user = await mUserManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
+        }
+
+        //
+        // POST: /Admin/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit([Bind(Include = "UserName,Id")] ApplicationUser formuser, string id, int RoleId)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ViewBag.RoleId = roleStringArrayToListItem();
+            var user = await mUserManager.FindByIdAsync(id);
+            user.UserName = formuser.UserName;
+
+            if (ModelState.IsValid)
+            {
+                //Update the user details
+                await mUserManager.UpdateAsync(user);
+
+                //If user has existing Role then remove the user from the role
+                // This also accounts for the case when the Admin selected Empty from the drop-down and
+                // this means that all roles for the user must be removed
+                var rolesForUser = await mUserManager.GetRolesAsync(id);
+                if (rolesForUser.Count() > 0)
+                {
+                    foreach (var item in rolesForUser)
+                    {
+                        var result = await mUserManager.RemoveFromRoleAsync(id, item);
+                    }
+                }
+
+                //Add user to new role
+                var addResult = await mUserManager.AddToRoleAsync(id, AccountController.roles[RoleId]);
+                if (!addResult.Succeeded)
+                {
+                    ModelState.AddModelError("", addResult.Errors.First().ToString());
+                    ViewBag.RoleId = roleStringArrayToListItem();
+                    return View();
+                }
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ViewBag.RoleId = roleStringArrayToListItem();
+                return View();
+            }
+        }
+
+
+        //
+        // GET: /Users/Delete/5
+        public async Task<ActionResult> Delete(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var user = await mUserManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
+        }
+
+        //
+        // POST: /Admin/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteConfirmed(string button, string id)
+        {
+            if (ModelState.IsValid)
+            {
+                if (button == "Cancel")
+                    return RedirectToAction("Users");
+
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                var user = await mUserManager.FindByIdAsync(id);
+
+                var logins = user.Logins;
+                foreach (var login in logins)
+                {
+                    mUserManager.RemoveLogin(id, new UserLoginInfo(login.LoginProvider, login.ProviderKey));
+                }
+
+                //If user has existing Role then remove the user from the role
+                // This also accounts for the case when the Admin selected Empty from the drop-down and
+                // this means that all roles for the user must be removed
+                var rolesForUser = await mUserManager.GetRolesAsync(id);
+                if (rolesForUser.Count() > 0)
+                {
+                    foreach (var item in rolesForUser)
+                    {
+                        var result = await mUserManager.RemoveFromRoleAsync(id, item);
+                    }
+                }
+
+                mUserDb.Users.Remove(user);
+                await mUserDb.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
         }
     }
 }

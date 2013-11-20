@@ -1,0 +1,21 @@
+﻿@model ShoppingGuide.Models.ApplicationUser
+
+<p>
+    <ul class="nav nav-pills">
+      <li class="active"><a href="~/Admin/Users">User Management</a></li>
+      <li><a href="~/ProductManage">Product Management</a></li>
+    </ul>
+</p>
+
+<div>
+    <fieldset class="form-horizontal">
+        <legend>Are you sure you want to delete <b><i>@Html.DisplayFor(model => model.UserName)</i></b>?</legend>
+
+        @using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
+            <input type="submit" name="button" value="Delete" class="btn btn-danger" />
+            <input type="submit" name="button" value="Cancel" class="btn btn-default" />
+            <h3></h3>
+        }
+    </fieldset>
+</div>
