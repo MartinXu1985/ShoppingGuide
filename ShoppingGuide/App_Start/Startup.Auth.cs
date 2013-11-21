@@ -29,9 +29,9 @@ namespace ShoppingGuide
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "445471775565047",
+               appSecret: "413db2e9ea51f05ef1d8c1c9882453ca");
 
             //app.UseGoogleAuthentication();
         }
