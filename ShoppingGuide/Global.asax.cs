@@ -17,8 +17,8 @@ namespace ShoppingGuide
     {
         protected void Application_Start()
         {
-            System.Data.Entity.Database.SetInitializer
-                (new DropCreateDatabaseAlways<ShoppingGuideDB>());
+            LoadDbSampleData.loadData();
+
             System.Data.Entity.Database.SetInitializer
                 (new DropCreateDatabaseAlways<ApplicationDbContext>());
 
