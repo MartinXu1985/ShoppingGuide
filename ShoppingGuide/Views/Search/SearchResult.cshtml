@@ -1,0 +1,24 @@
+﻿@model IEnumerable<ShoppingGuide.Models.Product>
+
+@{
+    ViewBag.Title = "SearchResult";
+}
+
+<h2>Search Result</h2>
+
+<ul>
+    @foreach(var product in Model)
+    {
+        <li>
+           Name: @Html.ActionLink(product.Name, 
+                "Details",   // <-- ActionMethod
+                "Store",  // <-- Controller Name.
+                new {id = product.ProductId }, // <-- Route arguments.
+                null // <-- htmlArguments .. which are none. You need this value
+                      //     otherwise you call the WRONG method ...
+                      //     (refer to comments, below)
+                )<br />
+            Price: @product.Price<br />
+        </li>
+    }
+</ul>
