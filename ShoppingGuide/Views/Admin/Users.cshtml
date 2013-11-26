@@ -16,44 +16,43 @@
 
 <div class="panel panel-default">
     <div class="panel-heading"><b>Users</b></div>
-        <table class="table">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Roles)
+            </th>
+            <th>Actions
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
             <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.UserName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Roles)
-                </th>
-                <th>
-                    Actions
-                </th>
-            </tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @{
+                int i = 1;
+                foreach (var role in item.Roles)
+                {
+                        @Html.DisplayFor(modelItem => role.Role.Name)
 
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UserName)
-                    </td>
-                    <td>
-                        @{
-                            int i = 1;
-                            foreach (var role in item.Roles)
-                            {
-                                @Html.DisplayFor(modelItem => role.Role.Name)
-
-                                if ((item.Roles.Count > 1) && 
-                                    (i++ != item.Roles.Count)){<i>, </i>}
+                                if ((item.Roles.Count > 1) &&
+                                    (i++ != item.Roles.Count))
+                                {<i>, </i>}
                             }
-                        }
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    }
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                         @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                    </td>
-                </tr>
+                </td>
+            </tr>
             }
 
-        </table>
-    </div>
+    </table>
 </div>
