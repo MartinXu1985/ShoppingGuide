@@ -4,6 +4,20 @@
     ViewBag.Title = "Manage Account";
 }
 
+@if (Request.IsAuthenticated)
+{
+    if (User.IsInRole("admin"))
+    {
+        <p>
+            <ul class="nav nav-tabs">
+              <li><a href="~/Admin/Users">User Management</a></li>
+              <li><a href="~/ProductManage">Product Management</a></li>
+              <li class="active">@Html.ActionLink("Account Management", "Manage", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
+            </ul>
+        </p>
+    }
+}
+
 <h2>@ViewBag.Title</h2>
 
 <p class="text-success">@ViewBag.StatusMessage</p>
