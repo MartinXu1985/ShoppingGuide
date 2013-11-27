@@ -17,29 +17,27 @@
 </p>
 <div class="panel panel-default">
     <div class="panel-heading"><b>Products</b></div>
-    <table class="table">
+    <table class="table table-hover">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.CategoryId)
             </th>
-            <th>
+            <th style="width: 10%">
                 @Html.DisplayNameFor(model => model.Name)
             </th>
-            <th>
+            <th style="width: 10%">
                 @Html.DisplayNameFor(model => model.Price)
             </th>
-            <th>
+            <th style="width: 10%">
                 @Html.DisplayNameFor(model => model.ProductUrl)
             </th>
-            <th>
+            <th style="width: 40%">
                 @Html.DisplayNameFor(model => model.Description)
             </th>
-            <th>
+            <th style="width: 10%">
                 @Html.DisplayNameFor(model => model.CategoryName)
             </th>
-            </th>
-            <th>Actions
-            </th>
+            <th style="width: 20%">Actions</th>
         </tr>
 
         @foreach (var item in Model)
@@ -70,6 +68,5 @@
                 </td>
             </tr>
         }
-
     </table>
 </div>

@@ -4,7 +4,32 @@
             xsi:schemaLocation="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0 MvcSiteMapSchema.xsd">
 
   <mvcSiteMapNode title="Home" controller="Home" action="Index">
-    <mvcSiteMapNode title="About" controller="Home" action="About"/>
+    <mvcSiteMapNode title="Admin" controller="Admin" action="Users">
+      <mvcSiteMapNode title="Users" controller="Admin" action="Users">
+        <mvcSiteMapNode title="Create" controller="Admin" action="Create"/>
+        <mvcSiteMapNode title="Delete" controller="Admin" action="Delete" id="1"/>
+        <mvcSiteMapNode title="Edit" controller="Admin" action="Edit" id="1"/>
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Products" controller="ProductManage" action="Index">
+        <mvcSiteMapNode title="Create" controller="ProductManage" action="Create" />
+        <mvcSiteMapNode title="Delete" controller="ProductManage" action="Delete" id="1"/>
+        <mvcSiteMapNode title="Details" controller="ProductManage" action="Details" id="1" />
+        <mvcSiteMapNode title="Edit" controller="ProductManage" action="Edit" id="1" />
+      </mvcSiteMapNode>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Search" controller="Search" action="SearchResult" />
+    <mvcSiteMapNode title="Store" controller="Store" action="Browse">
+      <mvcSiteMapNode title="Browse" controller="Store" action="Browse">
+        <mvcSiteMapNode title="Details" controller="Store" action="Details" id="1"/>
+      </mvcSiteMapNode>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Account" controller="Account" action="Login" >
+      <mvcSiteMapNode title="Login" controller="Account" action="Login"/>
+      <mvcSiteMapNode title="Manage" controller="Account" action="Manage"/>
+      <mvcSiteMapNode title="Register" controller="Account" action="Register"/>
+      <mvcSiteMapNode title="Account" controller="Account" action="ExternalLoginFailure"/>
+      <mvcSiteMapNode title="Account" controller="Account" action="ExternalLoginConfirmation"/>
+    </mvcSiteMapNode>
   </mvcSiteMapNode>
 
 </mvcSiteMap>
