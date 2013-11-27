@@ -21,6 +21,8 @@ namespace ShoppingGuide.Models
 
         public string CategoryName { get; set; }
 
+        public string Image { get; set; }
+
         public string Title { get; set; }
         //attributes;
     }

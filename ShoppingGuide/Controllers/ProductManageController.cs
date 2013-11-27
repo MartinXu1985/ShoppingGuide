@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ShoppingGuide.Models;
+using System.IO;
 
 namespace ShoppingGuide.Controllers
 {
@@ -47,10 +48,23 @@ namespace ShoppingGuide.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Product product)
+        public ActionResult Create(Product product, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
+                // Verify that the user selected a file
+                if (file != null && file.ContentLength > 0)
+                {
+                    // extract only the fielname
+                    var fileName = Path.GetFileName(file.FileName);
+                    // store the file inside ~/Content/Uploads folder
+                    var path = Path.Combine(Server.MapPath("~/Content/Uploads"), fileName);
+                    file.SaveAs(path);
+
+                    // Save the image url
+                    product.Image = "~/Content/Uploads/" + fileName.ToString();
+                }
+
                 db.Product.Add(product);
                 db.SaveChanges();
                 return RedirectToAction("Index");

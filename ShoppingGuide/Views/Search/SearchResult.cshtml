@@ -10,24 +10,31 @@
     @Html.Partial("_ProductNavPartial")
 
     <legend>Search Result</legend>
-    <div class="list-group col-md-7">
+    <div class="list-group col-md-7" style="padding-left: 1em">
         @foreach (var product in Model)
         {
-            <a href="~/Store/Details/@product.ProductId" class="list-group-item">
-                <h4 class="list-group-item-heading">@product.Name</h4>
-                <p class="list-group-item-text"><b>Price:</b> $@product.Price</p>
-                <p class="list-group-item-text">
-                    <b>Description:</b>
-                    @if (product.Description.Length < 50)
-                    {
-                        Html.Raw(product.Description);
-                    }
-                    else
-                    {
-                        Html.Raw(product.Description.Substring(0, 50));
-                    }
-                </p>
-            </a>
+            <div class="row">
+                <a href="~/Store/Details/@product.ProductId" class="list-group-item" style="height: 141px">
+                    <div class="pull-left" style="padding-right: 1em">
+                        <img src="@Url.Content(product.Image)" class="img-circle" width="120" height="120">
+                    </div>
+                    <div>
+                        <h4 class="list-group-item-heading">@product.Name</h4>
+                        <p class="list-group-item-text"><b>Price:</b> $@product.Price</p>
+                        <p class="list-group-item-text">
+                            <b>Description:</b>
+                            @if (product.Description.Length < 100)
+                            {
+                                <i>@product.Description</i>;
+                            }
+                            else
+                            {
+                                <i>@product.Description.Substring(0, 100)...</i>;
+                            }
+                        </p>
+                    </div>
+                </a>
+            </div>
         }
     </div>
 </fieldset>
