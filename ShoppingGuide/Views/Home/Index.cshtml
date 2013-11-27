@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<ShoppingGuide.Models.Product>
+
+@{
     ViewBag.Title = "Home Page";
 }
 
@@ -7,6 +9,43 @@
     @Html.Partial("_ProductNavPartial")
 
     <legend>Featured Items</legend>
-    <div class="list-group col-md-7">
-    </div>
+        @{
+            int i = 0;
+            int ratio = 2;
+            foreach (var product in Model)
+            {
+                // For every two items, make it a new row.
+                if ((i % ratio) == 0)
+                {
+                    @:<div class="row">
+                }
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <img src="@Url.Content(product.Image)" style="width: 200px; height: 200px" class="img-circle">
+                        <div class="caption">
+                            <h4>@product.Name</h4>
+                                <p>
+                                    @if (product.Description.Length < 80)
+                                    {
+                                        <i>@product.Description</i>;
+                                    }
+                                    else
+                                    {
+                                        <i>@product.Description.Substring(0, 80)...</i>;
+                                    }
+                                </p>
+                            <p><a href="#" class="btn btn-success" role="button">Add to Cart</a> <a href="~/Store/Details/@product.ProductId" class="btn btn-default" role="button">View</a></p>
+                        </div>
+                    </div>
+                </div>
+                if (((i + 1) % ratio) == 0)
+                {
+                    @:</div>
+                    <h3></h3>
+                    <div class="list-group pull-left col-md-3"></div>
+                }
+
+                i++;
+            }
+        }
 </fieldset>

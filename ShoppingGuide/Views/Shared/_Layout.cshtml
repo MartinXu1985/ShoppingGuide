@@ -47,9 +47,11 @@
         </div>
     </div>
     <div class="container body-content">
-        <ol class="breadcrumb">
-            @Html.MvcSiteMap().SiteMapPath()
-        </ol>
+        <p>
+            <ol class="breadcrumb">
+                @Html.MvcSiteMap().SiteMapPath()
+            </ol>
+        </p>
         @RenderBody()
         <hr />
         <div class="navbar navbar-inverse navbar-fixed-bottom">
