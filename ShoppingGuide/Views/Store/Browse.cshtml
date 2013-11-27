@@ -1,4 +1,4 @@
-﻿@model ShoppingGuide.Models.Category
+﻿@model IEnumerable<ShoppingGuide.Models.Product>
 
 @{
     ViewBag.Title = "Browse";
@@ -8,7 +8,25 @@
 <fieldset class="form-horizontal">
     @Html.Partial("_ProductNavPartial")
 
-    <legend>Browsing Category: @Model.CategoryName</legend>
+    <legend>Browsing category <b><i>@ViewBag.ProductCategory</i></b></legend>
     <div class="list-group col-md-7">
+        @foreach (var product in Model)
+        {
+            <a href="~/Store/Details/@product.ProductId" class="list-group-item">
+                <h4 class="list-group-item-heading">@product.Name</h4>
+                <p class="list-group-item-text"><b>Price:</b> $@product.Price</p>
+                <p class="list-group-item-text">
+                    <b>Description:</b>
+                    @if (product.Description.Length < 50)
+                    {
+                        Html.Raw(product.Description);
+                    }
+                    else
+                    {
+                        Html.Raw(product.Description.Substring(0, 50));
+                    }
+                </p>
+            </a>
+        }
     </div>
 </fieldset>

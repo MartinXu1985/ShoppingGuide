@@ -9,34 +9,30 @@ namespace ShoppingGuide.Controllers
 {
     public class StoreController : Controller
     {
-        //
-        // GET: /Store/
-        public ActionResult Index()
-        {
-            var categories = new List<Category>
-                            {
-                                new Category { CategoryName = "Sports"},
-                                new Category { CategoryName = "Books"},
-                                new Category { CategoryName = "Home"},
-                                new Category { CategoryName = "Clothes"},
-                                new Category { CategoryName = "Electronics"}
+        ShoppingGuideDB db = new ShoppingGuideDB();
 
-                            };
-            return View(categories);
-        }
         //
         // GET: /Store/Browse?category=Home
         public ActionResult Browse(string category)
         {
-            var categoryModel = new Category { CategoryName = category };
+            var result = db.Product.Where(g => g.CategoryName == category);
+
             ViewBag.ProductCategory = category;
-            return View(categoryModel);
+
+            return View(result.ToList());
         }
+
         //
         // GET: /Store/Details/5
         public ActionResult Details(int id)
         {
-            var product = new Product { Title = "Product " + id };
+            Product product = db.Product.Find(id);
+
+            if (product != null)
+            {
+                ViewBag.ProductCategory = product.CategoryName;
+            }
+
             return View(product);
         }
     }

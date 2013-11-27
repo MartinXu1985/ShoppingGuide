@@ -18,7 +18,7 @@ namespace ShoppingGuide
 
             ShoppingGuideDB db = new ShoppingGuideDB();
 
-            new List<Product>
+           new List<Product>
            {
                new Product { CategoryId = 0, Name = "desk", Price = 59.99, ProductUrl ="/content/", Description = "test", CategoryName = "Home" },
                new Product { CategoryId = 1, Name = "ball", Price = 19.99, ProductUrl ="/content/", Description = "test", CategoryName = "Sports" },
