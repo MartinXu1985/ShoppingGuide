@@ -4,6 +4,16 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Product: @Model.Title</h2>
+<h2></h2>
+<fieldset class="form-horizontal">
+    @Html.Partial("_ProductNavPartial")
 
-<div class="fb-share-button" data-href="http://developers.facebook.com/docs/plugins/" data-type="button_count"></div>
+    <legend>
+        <h4>Product: @Model.Title
+            <div class="fb-share-button" data-href="http://developers.facebook.com/docs/plugins/" data-type="button_count"></div>
+        </h4>
+    </legend>
+    <div class="list-group col-md-7">
+    </div>
+</fieldset>
+

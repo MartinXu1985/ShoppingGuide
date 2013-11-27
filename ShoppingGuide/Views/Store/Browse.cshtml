@@ -4,4 +4,11 @@
     ViewBag.Title = "Browse";
 }
 
-<h2>Browsing Category: @Model.CategoryName</h2>
+<h2></h2>
+<fieldset class="form-horizontal">
+    @Html.Partial("_ProductNavPartial")
+
+    <legend>Browsing Category: @Model.CategoryName</legend>
+    <div class="list-group col-md-7">
+    </div>
+</fieldset>

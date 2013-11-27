@@ -14,14 +14,14 @@ namespace ShoppingGuide.Controllers
         public ActionResult Index()
         {
             var categories = new List<Category>
-    {
-        new Category { CategoryName = "Sports"},
-        new Category { CategoryName = "Books"},
-        new Category { CategoryName = "Home"},
-        new Category { CategoryName = "Clothes"},
-        new Category { CategoryName = "Electronics"}
+                            {
+                                new Category { CategoryName = "Sports"},
+                                new Category { CategoryName = "Books"},
+                                new Category { CategoryName = "Home"},
+                                new Category { CategoryName = "Clothes"},
+                                new Category { CategoryName = "Electronics"}
 
-    };
+                            };
             return View(categories);
         }
         //
@@ -29,6 +29,7 @@ namespace ShoppingGuide.Controllers
         public ActionResult Browse(string category)
         {
             var categoryModel = new Category { CategoryName = category };
+            ViewBag.ProductCategory = category;
             return View(categoryModel);
         }
         //

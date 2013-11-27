@@ -1,0 +1,31 @@
+﻿<div class="list-group pull-left col-md-3">
+    @{
+        string sportsClass, homeClass, clothesClass, electronicsClass;
+        sportsClass = homeClass = clothesClass = electronicsClass = "list-group-item";
+
+        if (ViewBag.ProductCategory != null)
+        { 
+            if ("Sports".Equals(ViewBag.ProductCategory))
+            {
+                sportsClass = "list-group-item active";
+            }
+            else if ("Home".Equals(ViewBag.ProductCategory))
+            {
+                homeClass = "list-group-item active";
+            }
+            else if ("Clothes".Equals(ViewBag.ProductCategory))
+            {
+                clothesClass = "list-group-item active";
+            }
+            else if ("Electronics".Equals(ViewBag.ProductCategory))
+            {
+                electronicsClass = "list-group-item active";
+            }
+        }
+     
+        <a href="~/Store/Browse?category=Sports" class="@sportsClass">Sports</a>
+        <a href="~/Store/Browse?category=Home" class="@homeClass">Home</a>
+        <a href="~/Store/Browse?category=Clothes" class="@clothesClass">Clothes</a>
+        <a href="~/Store/Browse?category=Eletronics" class="@electronicsClass">Electronics</a>   
+    }
+</div> 

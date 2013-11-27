@@ -282,9 +282,8 @@
     <Content Include="Views\Admin\Edit.cshtml" />
     <Content Include="Views\Store\Details.cshtml" />
     <Content Include="Views\Store\Browse.cshtml" />
-    <Content Include="Views\Store\Index.cshtml" />
     <Content Include="Views\Search\SearchResult.cshtml" />
-    <Content Include="Views\Shared\_AdminNavPartial.cshtml" />
+    <Content Include="Views\Shared\_ProductNavPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

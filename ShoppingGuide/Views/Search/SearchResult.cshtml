@@ -4,21 +4,30 @@
     ViewBag.Title = "SearchResult";
 }
 
-<h2>Search Result</h2>
 
-<ul>
-    @foreach(var product in Model)
-    {
-        <li>
-           Name: @Html.ActionLink(product.Name, 
-                "Details",   // <-- ActionMethod
-                "Store",  // <-- Controller Name.
-                new {id = product.ProductId }, // <-- Route arguments.
-                null // <-- htmlArguments .. which are none. You need this value
-                      //     otherwise you call the WRONG method ...
-                      //     (refer to comments, below)
-                )<br />
-            Price: @product.Price<br />
-        </li>
-    }
-</ul>
+<h2></h2>
+<fieldset class="form-horizontal">
+    @Html.Partial("_ProductNavPartial")
+
+    <legend>Search Result</legend>
+    <div class="list-group col-md-7">
+        @foreach (var product in Model)
+        {
+            <a href="~/Store/Details/@product.ProductId" class="list-group-item">
+                <h4 class="list-group-item-heading">@product.Name</h4>
+                <p class="list-group-item-text"><b>Price:</b> $@product.Price</p>
+                <p class="list-group-item-text">
+                    <b>Description:</b>
+                    @if (product.Description.Length < 50)
+                    {
+                        Html.Raw(product.Description);
+                    }
+                    else
+                    {
+                        Html.Raw(product.Description.Substring(0, 50));
+                    }
+                </p>
+            </a>
+        }
+    </div>
+</fieldset>

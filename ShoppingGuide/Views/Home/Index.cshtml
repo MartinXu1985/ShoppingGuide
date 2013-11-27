@@ -2,7 +2,11 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>Home Page</h1>
-    <p class="lead">TODO</p>
-</div>
+<h2></h2>
+<fieldset class="form-horizontal">
+    @Html.Partial("_ProductNavPartial")
+
+    <legend>Featured Items</legend>
+    <div class="list-group col-md-7">
+    </div>
+</fieldset>
