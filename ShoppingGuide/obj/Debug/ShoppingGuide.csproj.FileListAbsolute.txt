@@ -454,3 +454,10 @@ C:\Users\Mukhtar\Documents\GitHub\ShoppingGuide\ShoppingGuide\obj\Debug\Shopping
 C:\Users\Mukhtar\Documents\GitHub\ShoppingGuide\ShoppingGuide\obj\Debug\ShoppingGuide.csprojResolveAssemblyReference.cache
 C:\Users\Mukhtar\Documents\GitHub\ShoppingGuide\ShoppingGuide\obj\Debug\ShoppingGuide.dll
 C:\Users\Mukhtar\Documents\GitHub\ShoppingGuide\ShoppingGuide\obj\Debug\ShoppingGuide.pdb
+C:\Users\Chinh\Google Drive\CmpE285\project\ShoppingGuide\ShoppingGuide\bin\MvcSiteMapProvider.dll
+C:\Users\Chinh\Google Drive\CmpE285\project\ShoppingGuide\ShoppingGuide\bin\WebActivatorEx.dll
+C:\Users\Chinh\Google Drive\CmpE285\project\ShoppingGuide\ShoppingGuide\bin\System.Web.Helpers.xml
+C:\Users\Chinh\Google Drive\CmpE285\project\ShoppingGuide\ShoppingGuide\bin\System.Web.Mvc.xml
+C:\Users\Chinh\Google Drive\CmpE285\project\ShoppingGuide\ShoppingGuide\bin\System.Web.WebPages.xml
+C:\Users\Chinh\Google Drive\CmpE285\project\ShoppingGuide\ShoppingGuide\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Chinh\Google Drive\CmpE285\project\ShoppingGuide\ShoppingGuide\bin\System.Web.WebPages.Razor.xml
