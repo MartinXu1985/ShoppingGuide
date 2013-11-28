@@ -15,6 +15,25 @@
         </h6>
     </legend>
     <div class="list-group col-md-7">
+        <ul>
+            <li>Name: @Model.Name</li>
+            <li>Price: @Model.Price</li>
+            <li>Description: @Model.Description</li>
+            <li>Rating: @Model.Rating /5.0</li>
+            <li>Votes: @Model.Votes</li>
+        </ul>
+         @using (Html.BeginForm("Rate", "Store", @Model.ProductId))
+         {
+            <select name="rating">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            <input type="hidden" name="iD" value="@Model.ProductId" />
+            <input type="submit" value="Rate This Product" />
+         }
     </div>
 </fieldset>
 

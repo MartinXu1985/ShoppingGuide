@@ -461,3 +461,10 @@ C:\Users\Chinh\Google Drive\CmpE285\project\ShoppingGuide\ShoppingGuide\bin\Syst
 C:\Users\Chinh\Google Drive\CmpE285\project\ShoppingGuide\ShoppingGuide\bin\System.Web.WebPages.xml
 C:\Users\Chinh\Google Drive\CmpE285\project\ShoppingGuide\ShoppingGuide\bin\System.Web.WebPages.Deployment.xml
 C:\Users\Chinh\Google Drive\CmpE285\project\ShoppingGuide\ShoppingGuide\bin\System.Web.WebPages.Razor.xml
+C:\Users\Mukhtar\Documents\GitHub\ShoppingGuide\ShoppingGuide\bin\MvcSiteMapProvider.dll
+C:\Users\Mukhtar\Documents\GitHub\ShoppingGuide\ShoppingGuide\bin\WebActivatorEx.dll
+C:\Users\Mukhtar\Documents\GitHub\ShoppingGuide\ShoppingGuide\bin\System.Web.Helpers.xml
+C:\Users\Mukhtar\Documents\GitHub\ShoppingGuide\ShoppingGuide\bin\System.Web.Mvc.xml
+C:\Users\Mukhtar\Documents\GitHub\ShoppingGuide\ShoppingGuide\bin\System.Web.WebPages.xml
+C:\Users\Mukhtar\Documents\GitHub\ShoppingGuide\ShoppingGuide\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Mukhtar\Documents\GitHub\ShoppingGuide\ShoppingGuide\bin\System.Web.WebPages.Razor.xml

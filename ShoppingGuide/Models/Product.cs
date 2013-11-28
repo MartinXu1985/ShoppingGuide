@@ -15,6 +15,10 @@ namespace ShoppingGuide.Models
 
         public double Price { get; set; }
 
+        public double Rating { get; set; }
+
+        public int Votes { get; set; }
+
         public string ProductUrl { get; set; }
 
         public string Description { get; set; }
