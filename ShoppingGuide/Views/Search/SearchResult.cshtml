@@ -42,6 +42,21 @@
                     <div>
                         <h4 class="list-group-item-heading">@product.Name</h4>
                         <p class="list-group-item-text"><b>Price:</b> $@product.Price</p>
+                        <p>
+                        @{ 
+                            int i;
+                            for (i = 0; i < product.Rating; i++)
+                            {
+                                <span class="glyphicon glyphicon-star"></span>
+                            }
+
+                            for (int j = i; j < 5; j++)
+                            {
+                                <span class="glyphicon glyphicon-star-empty"></span>
+                            }
+                        }
+                        &nbsp(@product.Votes)
+                        </p>
                         <p class="list-group-item-text">
                             <b>Description:</b>
                             @if (product.Description.Length < 100)

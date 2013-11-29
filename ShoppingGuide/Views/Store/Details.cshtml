@@ -20,22 +20,43 @@
             </div>
             <div class="col-md-6" style="text-align:justify">
                 <p><h4>Price:</h4><h4>$@Model.Price</h4></p>
-                <p><h4>Description:</h4>@Model.Description</p>
-                <p><h4>Rating:</h4>@Model.Rating/5.0</p>
-                <p><h4>Votes:</h4>@Model.Votes</p>
+                <p><h4>Rating:</h4>
+                    @{
+                        int i;
+                        for (i = 0; i < Model.Rating; i++)
+                        {
+                            string rateString = "../Rate?rating=" + (i + 1) + "&iD=" + Model.ProductId;
 
-                @using (Html.BeginForm("Rate", "Store", @Model.ProductId))
-                {
-                    <select name="rating">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select>
-                    <input type="hidden" name="iD" value="@Model.ProductId" />
-                    <input type="submit" value="Rate This Product" />
-                }
+                            if (ViewBag.alreadyRated != true)
+                            { 
+                                <a href="@rateString" style="text-decoration:none">
+                                <span class="glyphicon glyphicon-star"></span>
+                                </a>
+                            }
+                            else 
+                            {
+                                <span class="glyphicon glyphicon-star"></span>
+                            }
+                        }
+
+                        for (int j = i; j < 5; j++)
+                        { 
+                            string rateString = "../Rate?rating=" + (j + 1) + "&iD=" + Model.ProductId;
+                            if (ViewBag.alreadyRated != true)
+                            { 
+                                <a href="@rateString" style="text-decoration:none">
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </a>
+                            }
+                            else
+                            {
+                                <span class="glyphicon glyphicon-star-empty"></span>
+                            }
+                        }
+                    }
+                    &nbsp(@Model.Votes)
+                </p>
+                <p><h4>Description:</h4>@Model.Description</p>
             </div>
         </div>
     </div>

@@ -24,6 +24,22 @@
                         <img src="@Url.Content(product.Image)" style="width: 200px; height: 200px" class="img-circle">
                         <div class="caption">
                             <h4>@product.Name</h4>
+                            <p>
+                            @{ 
+                                int k;
+                                for (k = 0; k < product.Rating; k++)
+                                {
+                                    <span class="glyphicon glyphicon-star"></span>
+                                }
+
+                                for (int j = k; j < 5; j++)
+                                {
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                }
+                            }
+                            &nbsp(@product.Votes)
+                            </p>
+                            <h4>$@product.Price</h4>
                                 <p>
                                     @if (product.Description.Length < 80)
                                     {
