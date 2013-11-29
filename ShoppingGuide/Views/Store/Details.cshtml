@@ -8,32 +8,36 @@
 <fieldset class="form-horizontal">
     @Html.Partial("_ProductNavPartial")
 
-    <legend>
-        Viewing product <i><b>@Model.Name</b></i>
+    <legend>Viewing product <i><b>@Model.Name</b></i>
         <h6>
             <div class="fb-share-button" data-href="http://developers.facebook.com/docs/plugins/" data-type="button_count"></div>
         </h6>
     </legend>
-    <div class="list-group col-md-7">
-        <ul>
-            <li>Name: @Model.Name</li>
-            <li>Price: @Model.Price</li>
-            <li>Description: @Model.Description</li>
-            <li>Rating: @Model.Rating /5.0</li>
-            <li>Votes: @Model.Votes</li>
-        </ul>
-         @using (Html.BeginForm("Rate", "Store", @Model.ProductId))
-         {
-            <select name="rating">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select>
-            <input type="hidden" name="iD" value="@Model.ProductId" />
-            <input type="submit" value="Rate This Product" />
-         }
+    <div class="panel panel-default col-md-9">
+        <div class="panel-body">
+            <div class="col-md-6 pull-left">
+                <img src="@Url.Content(Model.Image)" style="max-width: 400px; max-height: 400px; width: auto; height: auto; padding-right: 30px" class="pull-left"/>
+            </div>
+            <div class="col-md-6" style="text-align:justify">
+                <p><h4>Price:</h4><h4>$@Model.Price</h4></p>
+                <p><h4>Description:</h4>@Model.Description</p>
+                <p><h4>Rating:</h4>@Model.Rating/5.0</p>
+                <p><h4>Votes:</h4>@Model.Votes</p>
+
+                @using (Html.BeginForm("Rate", "Store", @Model.ProductId))
+                {
+                    <select name="rating">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                    <input type="hidden" name="iD" value="@Model.ProductId" />
+                    <input type="submit" value="Rate This Product" />
+                }
+            </div>
+        </div>
     </div>
 </fieldset>
 
