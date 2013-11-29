@@ -10,7 +10,6 @@
     @Html.Partial("_ProductNavPartial")
 
     <legend>Search Result</legend>
-    <div class="pannel-heading"  style="text-align :right"><b>@Html.ActionLink("Sort By Rating", "SortByRating")</b></div>
     <div class="list-group col-md-7" style="padding-left: 1em">
         @foreach (var product in Model)
         {
@@ -22,7 +21,6 @@
                     <div>
                         <h4 class="list-group-item-heading">@product.Name</h4>
                         <p class="list-group-item-text"><b>Price:</b> $@product.Price</p>
-                        <p class="list-group-item-text"><b>Rating</b> @product.Rating</p>
                         <p class="list-group-item-text">
                             <b>Description:</b>
                             @if (product.Description.Length < 100)
