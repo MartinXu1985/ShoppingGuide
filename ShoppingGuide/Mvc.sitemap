@@ -18,8 +18,10 @@
       </mvcSiteMapNode>
     </mvcSiteMapNode>
     <mvcSiteMapNode title="Search" controller="Search" action="SearchResult" />
+    <mvcSiteMapNode title="Search" controller="Search" action="SearchSort" />
     <mvcSiteMapNode title="Store" controller="Store" action="Browse">
       <mvcSiteMapNode title="Browse" controller="Store" action="Browse">
+        <mvcSiteMapNode title="Browse" controller="Store" action="BrowseSort"/>
         <mvcSiteMapNode title="Details" controller="Store" action="Details" id="1"/>
       </mvcSiteMapNode>
     </mvcSiteMapNode>

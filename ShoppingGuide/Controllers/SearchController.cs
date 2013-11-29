@@ -10,6 +10,7 @@ namespace ShoppingGuide.Controllers
     public class SearchController : Controller
     {
         ShoppingGuideDB db = new ShoppingGuideDB();
+
         //
         // GET: /Search/
 
@@ -18,13 +19,31 @@ namespace ShoppingGuide.Controllers
             return View();
         }
 
-        // POST: /Search/
+        // POST: /Search/SearchResult
         [HttpPost]
         public ActionResult SearchResult(String search)
         {
-            //var result = dbStore.Albums.Where(g => g.Title == search);
             var result = db.Product.SqlQuery("SELECT * FROM Products WHERE Name LIKE " + "'%" + search + "%'").ToList();
+            ViewBag.searchQuery = search;
+
             return View(result);
+        }
+
+        public ActionResult SearchSort(String sort, string search)
+        {
+            var result = db.Product.SqlQuery("SELECT * FROM Products WHERE Name LIKE " + "'%" + search + "%'").ToList();
+            ViewBag.searchQuery = search;
+
+            if (sort.Equals("Price"))
+            {
+                result = result.OrderBy(x => x.Price).ToList();
+            }
+            else if (sort.Equals("Rating"))
+            {
+                result = result.OrderBy(x => x.Rating).ToList();
+            }
+
+            return View("../Search/SearchResult", result);
         }
     }
 }

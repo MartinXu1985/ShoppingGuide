@@ -5,10 +5,28 @@
 }
 
 <h2></h2>
+<font size="5pt">Browsing category <b><i>@ViewBag.ProductCategory</i></b></font>
+<div class="pull-right">
+    <div class="btn-group">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Sort by<span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            @{
+                string none = "BrowseSort?sort=None&category=" + ViewBag.ProductCategory;
+                string price = "BrowseSort?sort=Price&category=" + ViewBag.ProductCategory;
+                string rating = "BrowseSort?sort=Rating&category=" + ViewBag.ProductCategory;
+                            
+                <li><a href="@none">None</a></li>
+                <li><a href="@price">Price</a></li>
+                <li><a href="@rating">Rating</a></li>
+            }
+        </ul>
+    </div>
+</div>
+<hr />
 <fieldset class="form-horizontal">
     @Html.Partial("_ProductNavPartial")
 
-    <legend>Browsing category <b><i>@ViewBag.ProductCategory</i></b></legend>
     <div class="list-group col-md-7" style="padding-left: 1em">
         @foreach (var product in Model)
         {

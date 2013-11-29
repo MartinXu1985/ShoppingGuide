@@ -15,13 +15,26 @@ namespace ShoppingGuide.Controllers
         
         //
         // GET: /Store/Browse?category=Home
-        public ActionResult Browse(string category)
+        public ActionResult Browse(string category, string sort = "None")
         {
-            var result = db.Product.Where(g => g.CategoryName == category);
+            var result = db.Product.Where(g => g.CategoryName == category).ToList();
 
             ViewBag.ProductCategory = category;
 
-            return View(result.ToList());
+            if (sort.Equals("None"))
+            {
+                // Don't need to do anything
+            }
+            else if (sort.Equals("Price"))
+            {
+                result = result.OrderBy(x => x.Price).ToList();
+            }
+            else if (sort.Equals("Rating"))
+            {
+                result = result.OrderBy(x => x.Rating).ToList();
+            }
+
+            return View(result);
         }
 
         //
@@ -49,6 +62,23 @@ namespace ShoppingGuide.Controllers
             db.Database.ExecuteSqlCommand(sqlString);
             db.SaveChanges();
             return RedirectToAction("Details",new{id = iD});
+        }
+
+        public ActionResult BrowseSort(String sort, string category)
+        {
+            var result = db.Product.Where(g => g.CategoryName == category).ToList();
+            ViewBag.ProductCategory = category;
+
+            if (sort.Equals("Price"))
+            {
+                result = result.OrderBy(x => x.Price).ToList();
+            }
+            else if (sort.Equals("Rating"))
+            {
+                result = result.OrderBy(x => x.Rating).ToList();
+            }
+
+            return View("../Store/Browse", result);
         }
     }
 }
