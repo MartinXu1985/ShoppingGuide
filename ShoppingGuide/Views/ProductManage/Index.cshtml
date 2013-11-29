@@ -17,6 +17,8 @@
 </p>
 <div class="panel panel-default">
     <div class="panel-heading"><b>Products</b></div>
+
+    <div class="pannel-heading"  style="text-align :right"><b>@Html.ActionLink("Sort By Rating", "SortByRating")</b></div>
     <table class="table table-hover">
         <tr>
             <th>
@@ -27,6 +29,9 @@
             </th>
             <th style="width: 10%">
                 @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th style="width : 10%">
+                @Html.DisplayNameFor(model => model.Rating)
             </th>
             <th style="width: 10%">
                 @Html.DisplayNameFor(model => model.ProductUrl)
@@ -53,6 +58,9 @@
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
+                     @Html.DisplayFor(modelItem => item.Rating)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.ProductUrl)
                 </td>
                 <td>
@@ -69,4 +77,6 @@
             </tr>
         }
     </table>
-</div>
+
+
+    </div>

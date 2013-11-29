@@ -19,9 +19,20 @@ namespace ShoppingGuide.Controllers
 
         public ActionResult Index()
         {
-            return View(db.Product.ToList());
+            List<Product> ps = db.Product.ToList();
+            ps = ps.OrderBy(x => x.Price).ToList();
+            return View(ps);
+            // return View(db.Product.ToList());
         }
-
+        //
+        // GET: /ProductManage/SortByRating
+        public ActionResult SortByRating()
+        {
+            List<Product> ps = db.Product.ToList();
+            ps = ps.OrderBy(x => x.Rating).ToList();
+            return View(ps);
+        }
+        //sort by rating 
         //
         // GET: /ProductManage/Details/5
 

@@ -1,11 +1,9 @@
-﻿@model IEnumerable<ShoppingGuide.Models.Product>
-
-@{
-    ViewBag.Title = "SearchResult";
+﻿@{
+    ViewBag.Title = "SearchResultBack";
 }
 
-
-<h2></h2>
+<h2>SearchResultBack</h2>
+<h2>SearchResultBack</h2>
 <fieldset class="form-horizontal">
     @Html.Partial("_ProductNavPartial")
 
@@ -22,7 +20,7 @@
                     <div>
                         <h4 class="list-group-item-heading">@product.Name</h4>
                         <p class="list-group-item-text"><b>Price:</b> $@product.Price</p>
-                        <p class="list-group-item-text"><b>Rating</b> @product.Rating</p>
+                        <p class="list-group-item-text"><b>Rating:</b> @product.Rating</p>
                         <p class="list-group-item-text">
                             <b>Description:</b>
                             @if (product.Description.Length < 100)
