@@ -11,5 +11,11 @@ namespace ShoppingGuide.Models
     {
         public DbSet<Product> Product { get; set; }
         public DbSet<Rating> Rating { get; set; }
+        public DbSet<Cart>
+Carts { get; set; }
+        public DbSet<Order> Orders
+        { get; set; }
+        public DbSet<OrderDetail>
+OrderDetails { get; set; }
     }
 }
