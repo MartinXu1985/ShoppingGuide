@@ -3,6 +3,31 @@
 @{
     ViewBag.Title = "Details";
 }
+  // comment write
+@{
+
+    var result="";
+    Array existingComments=null;
+    var dataFile = Server.MapPath("~/App_Data/" + @Model.CategoryId + ".txt");
+    if (IsPost)
+    {
+        var comment = Request["comment"];
+        
+
+        var userData = comment+ Environment.NewLine;
+
+        
+        File.AppendAllText(@dataFile, userData);
+    }
+    if(File.Exists(dataFile)){
+        existingComments = File.ReadAllLines(dataFile);
+        if (existingComments != null)
+        {
+            result = "comments found";
+        }
+    }
+    
+}
 
 <h2></h2>
 <fieldset class="form-horizontal">
@@ -57,6 +82,24 @@
                     &nbsp(@Model.Votes)
                 </p>
                 <p><h4>Description:</h4>@Model.Description</p>
+                <p><h4>Comments:</h4></p>
+               
+                @if(result=="comments found"){
+                    <ol>
+                        @foreach(string dataline in existingComments){
+                            <li>@dataline</li>}
+                    </ol>
+                }
+                else
+                {
+                    <span>No Comments,We aprreciate your feedbacks </span>
+                }
+                <form id="comment_form" method="post">
+                <p><h4> Add New Comments:</h4></p>
+                <textarea id="comment" name="comment" rows="3" style="width: 289px;height: 80px;" >
+                    </textarea>
+                <input type="submit" value="Add" class="btn btn-default" />
+                    </form>
             </div>
         </div>
     </div>
