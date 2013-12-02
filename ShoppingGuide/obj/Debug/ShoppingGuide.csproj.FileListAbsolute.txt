@@ -641,6 +641,5 @@ C:\Users\Parth\Documents\GitHub\ShoppingGuide\ShoppingGuide\bin\Mono.Math.xml
 C:\Users\Parth\Documents\GitHub\ShoppingGuide\ShoppingGuide\bin\ru-ru\BundleTransformer.Core.resources.dll
 C:\Users\Parth\Documents\GitHub\ShoppingGuide\ShoppingGuide\bin\ru-ru\JavaScriptEngineSwitcher.Core.resources.dll
 C:\Users\Parth\Documents\GitHub\ShoppingGuide\ShoppingGuide\obj\Debug\ShoppingGuide.csproj.App.config
-C:\Users\Parth\Documents\GitHub\ShoppingGuide\ShoppingGuide\obj\Debug\ShoppingGuide.csprojResolveAssemblyReference.cache
 C:\Users\Parth\Documents\GitHub\ShoppingGuide\ShoppingGuide\obj\Debug\ShoppingGuide.dll
 C:\Users\Parth\Documents\GitHub\ShoppingGuide\ShoppingGuide\obj\Debug\ShoppingGuide.pdb

@@ -100,7 +100,7 @@ namespace ShoppingGuide.Models
             // Return 0 if all entries are null
             return count ?? 0;
         }
-        public decimal GetTotal()
+       public decimal GetTotal()
         {
             // Multiply product price by count of that a to get 
             // the current price for each of those products in the cart
@@ -108,7 +108,7 @@ namespace ShoppingGuide.Models
             decimal? total = (from cartItems in storeDB.Carts
                               where cartItems.CartId == ShoppingCartId
                               select (int?)cartItems.Count *
-                              System.Convert.ToDecimal(cartItems.Product.Price)).Sum();
+                              cartItems.Product.Price).Sum();
 
             return total ?? decimal.Zero;
         }

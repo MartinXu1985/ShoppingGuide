@@ -20,8 +20,9 @@ namespace ShoppingGuide.Controllers
             // Set up our ViewModel
             var viewModel = new ShoppingCartViewModel
             {
-                CartItems = cart.GetCartItems(),
-                CartTotal = cart.GetTotal()
+                CartItems = (cart.GetCartItems()),
+                //CartTotal = cart.getTotal()
+               CartTotal = (cart.GetTotal())
             };
             // Return the view
             return View(viewModel);
@@ -62,7 +63,7 @@ namespace ShoppingGuide.Controllers
             {
                 Message = Server.HtmlEncode(ProductName) +
                     " has been removed from your shopping cart.",
-                CartTotal = cart.GetTotal(),
+                CartTotal = System.Convert.ToDecimal(cart.GetTotal()),
                 CartCount = cart.GetCount(),
                 ItemCount = itemCount,
                 DeleteId = id
