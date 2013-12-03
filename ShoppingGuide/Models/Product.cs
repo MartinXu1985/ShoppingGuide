@@ -16,7 +16,7 @@ namespace ShoppingGuide.Models
         public decimal Price { get; set; }
 
         public double Rating { get; set; }
-
+        public virtual List<Comments> Comments { get; set; }
         public int Votes { get; set; }
 
         public string ProductUrl { get; set; }

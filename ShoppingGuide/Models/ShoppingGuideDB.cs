@@ -17,5 +17,7 @@ Carts { get; set; }
         { get; set; }
         public DbSet<OrderDetail>
 OrderDetails { get; set; }
+        public DbSet<Comments> Comments { get; set; }
+
     }
 }

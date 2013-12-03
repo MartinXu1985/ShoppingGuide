@@ -1,33 +1,56 @@
 ﻿@model ShoppingGuide.Models.Product
-
+@using Microsoft.AspNet.Identity
 @{
     ViewBag.Title = "Details";
 }
-  // comment write
+@*  
 @{
+     var username = "";
+     var allowAddComments = true;
+     var result = "";
+     Array existingComments = null;
+    
+    if (Request.IsAuthenticated)
+    {
+        username = User.Identity.GetUserName();
+    }
+    
+   var dataFile = Server.MapPath("~/App_Data/" + @Model.ProductId + ".txt");
 
-    var result="";
-    Array existingComments=null;
-    var dataFile = Server.MapPath("~/App_Data/" + @Model.CategoryId + ".txt");
-    if (IsPost)
+    if (File.Exists(dataFile))
+    {
+        existingComments = File.ReadAllLines(dataFile);
+        if (existingComments != null)
+        { 
+            string users = (string)existingComments.GetValue(0);
+            foreach (string userComment in existingComments)
+            {
+                var user = userComment.Split('#')[0];
+                if(@user == username){
+                    allowAddComments = false;
+                    break;
+                }
+            }
+            result = "comments found";
+        }
+    }
+
+    if (IsPost && Request.IsAuthenticated)
     {
         var comment = Request["comment"];
         
 
-        var userData = comment+ Environment.NewLine;
+        var userData = username+ "#" + comment+ Environment.NewLine;
 
         
         File.AppendAllText(@dataFile, userData);
+        allowAddComments = false;
+        string path = HttpContext.Current.Request.Url.AbsoluteUri;
+        Response.Redirect(path);
     }
-    if(File.Exists(dataFile)){
-        existingComments = File.ReadAllLines(dataFile);
-        if (existingComments != null)
-        {
-            result = "comments found";
-        }
-    }
+  
     
-}
+}*@
 
 <h2></h2>
 <fieldset class="form-horizontal">
@@ -43,9 +66,13 @@
             <div class="col-md-6 pull-left">
                 <img src="@Url.Content(Model.Image)" style="max-width: 400px; max-height: 400px; width: auto; height: auto; padding-right: 30px" class="pull-left"/>
             </div>
-            <div class="col-md-6" style="text-align:justify">
-                <p><h4>Price:</h4><h4>$@Model.Price</h4></p>
-                <p><h4>Rating:</h4>
+            <div class="col-md-6" style="text-align: justify">
+                <p>
+                    <h4>Price:</h4>
+                    <h4>$@Model.Price</h4>
+                </p>
+                <p>
+                    <h4>Rating:</h4>
                     @{
                         int i;
                         for (i = 0; i < Model.Rating; i++)
@@ -54,52 +81,63 @@
 
                             if (ViewBag.alreadyRated != true)
                             { 
-                                <a href="@rateString" style="text-decoration:none">
-                                <span class="glyphicon glyphicon-star"></span>
-                                </a>
+                        <a href="@rateString" style="text-decoration:none">
+                            <span class="glyphicon glyphicon-star"></span>
+                        </a>
                             }
-                            else 
+                            else
                             {
-                                <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
                             }
                         }
 
                         for (int j = i; j < 5; j++)
-                        { 
+                        {
                             string rateString = "../Rate?rating=" + (j + 1) + "&iD=" + Model.ProductId;
                             if (ViewBag.alreadyRated != true)
                             { 
-                                <a href="@rateString" style="text-decoration:none">
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                </a>
+                        <a href="@rateString" style="text-decoration:none">
+                            <span class="glyphicon glyphicon-star-empty"></span>
+                        </a>
                             }
                             else
                             {
-                                <span class="glyphicon glyphicon-star-empty"></span>
+                        <span class="glyphicon glyphicon-star-empty"></span>
                             }
                         }
                     }
                     &nbsp(@Model.Votes)
                 </p>
-                <p><h4>Description:</h4>@Model.Description</p>
-                <p><h4>Comments:</h4></p>
-               
-                @if(result=="comments found"){
+                <p>
+                    <h4>Description:</h4>@Model.Description</p>
+                <p>
+                    <h4>Comments:</h4>
+                </p>
+
+                @if (Model.Comments != null)
+                {
                     <ol>
-                        @foreach(string dataline in existingComments){
-                            <li>@dataline</li>}
+                        @foreach (ShoppingGuide.Models.Comments cmt in Model.Comments)
+                        {                                  
+                            <li><b>@cmt.Username: </b>@cmt.Comment</li>
+                        }
                     </ol>
                 }
                 else
                 {
                     <span>No Comments,We aprreciate your feedbacks </span>
                 }
-                <form id="comment_form" method="post">
-                <p><h4> Add New Comments:</h4></p>
-                <textarea id="comment" name="comment" rows="3" style="width: 289px;height: 80px;" >
+                @if (Request.IsAuthenticated && ViewBag.alreadyCommented != true)
+                {
+                    <form id="comment_form" method="post" action="@Url.Action("DetailsUpdate", "Store", new { id = Model.ProductId })">
+                        <p>
+                            <h4>Add New Comments:</h4>
+                        </p>
+                        <textarea id="comment" name="comment" rows="3" style="width: 289px; height: 80px;">
                     </textarea>
-                <input type="submit" value="Add" class="btn btn-default" />
+                        <input type="submit" value="Add" class="btn btn-default" />
                     </form>
+                }
             </div>
         </div>
     </div>
