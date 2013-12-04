@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using ShoppingGuide.Models;
+using System.Web.Security;
 
 namespace ShoppingGuide.Controllers
 {
@@ -40,6 +41,14 @@ namespace ShoppingGuide.Controllers
             // For testing purposes only!  Create a default admin.  Production
             // code should not include this!..
             createDefaultAdmin();
+        }
+        private void MigrateShoppingCart(string UserName)
+        {
+            // Associate shopping cart items with logged-in user
+            var cart = ShoppingCart.GetCart(this.HttpContext);
+
+            cart.MigrateCart(UserName);
+            Session[ShoppingCart.CartSessionKey] = UserName;
         }
 
         private void createDefaultAdmin()
@@ -101,17 +110,21 @@ namespace ShoppingGuide.Controllers
                 {
                     await SignInAsync(user, model.RememberMe);
 
-                    // Login based on admin or customer. !#!
-                    foreach (IdentityUserRole role in user.Roles.ToList())
-                    {
-                        if ("admin".Equals(role.Role.Name))
-                        {
-                            returnUrl = "~/admin";
-                            break;
-                        }
-                    }
+                    MigrateShoppingCart(model.UserName);
 
-                    return RedirectToLocal(returnUrl);
+                    FormsAuthentication.SetAuthCookie(model.UserName,
+                        model.RememberMe);
+                    if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1
+                        && returnUrl.StartsWith("/")
+                        && !returnUrl.StartsWith("//") &&
+                        !returnUrl.StartsWith("/\\"))
+                    {
+                        return Redirect(returnUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
                 else
                 {
@@ -159,7 +172,6 @@ namespace ShoppingGuide.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
-
         //
         // POST: /Account/Disassociate
         [HttpPost]
