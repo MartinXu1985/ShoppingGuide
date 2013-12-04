@@ -135,7 +135,7 @@ namespace ShoppingGuide.Models
 
             }
             // Set the order's total to the orderTotal count
-            order.Total = orderTotal;
+            //order.Total = orderTotal;
 
             // Save the order
             storeDB.SaveChanges();

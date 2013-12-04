@@ -71,6 +71,8 @@
                     <h4>Price:</h4>
                     <h4>$@Model.Price</h4>
                 </p>
+         <p><a href="~/ShoppingCart/AddToCart/@Model.ProductId" class="btn btn-success" role="button">Add to Cart</a> <a href="~/Store/Details/@Model.ProductId" class="btn btn-default" role="button">View</a></p>
+
                 <p>
                     <h4>Rating:</h4>
                     @{
@@ -136,6 +138,8 @@
                         <p><p><input type="submit" value="Add" class="btn btn-info" /></p></p>
                     </form>
                 }
+                  
+               
             </div>
         </div>
     </div>

@@ -34,7 +34,7 @@ namespace MvcMusicStore.Controllers
                 else
                 {
                     order.Username = User.Identity.Name;
-                    order.OrderDate = DateTime.Now;
+                    //order.OrderDate = DateTime.Now;
 
                     //Save Order
                     storeDB.Orders.Add(order);
