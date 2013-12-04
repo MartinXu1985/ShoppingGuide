@@ -96,9 +96,9 @@
                             string rateString = "../Rate?rating=" + (j + 1) + "&iD=" + Model.ProductId;
                             if (ViewBag.alreadyRated != true)
                             { 
-                        <a href="@rateString" style="text-decoration:none">
-                            <span class="glyphicon glyphicon-star-empty"></span>
-                        </a>
+                                <a href="@rateString" style="text-decoration:none">
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </a>
                             }
                             else
                             {
@@ -111,30 +111,29 @@
                 <p>
                     <h4>Description:</h4>@Model.Description</p>
                 <p>
-                    <h4>Comments:</h4>
+                    <h4>Feedback:</h4>
                 </p>
 
                 @if (Model.Comments != null)
                 {
-                    <ol>
-                        @foreach (ShoppingGuide.Models.Comments cmt in Model.Comments)
-                        {                                  
-                            <li><b>@cmt.Username: </b>@cmt.Comment</li>
-                        }
-                    </ol>
+                    foreach (ShoppingGuide.Models.Comments cmt in Model.Comments)
+                    {                                  
+                        <p><font color="#1CB9E5"><span class="glyphicon glyphicon-chevron-right"></span></font><b> @cmt.Username: </b>@cmt.Comment</p>
+                    }
                 }
                 else
                 {
-                    <span>No Comments,We aprreciate your feedbacks </span>
+                    <span>There is no feedback for the current product.</span>
                 }
                 @if (Request.IsAuthenticated && ViewBag.alreadyCommented != true)
                 {
-                    <form id="comment_form" method="post" action="@Url.Action("DetailsUpdate", "Store", new { id = Model.ProductId })">
+                    <form id="comment_form" class="form-group col-md-6" method="post" action="@Url.Action("DetailsUpdate", "Store", new { id = Model.ProductId })">
                         <p>
-                            <h4>Add New Comments:</h4>
+                            <h4>Add feedback:</h4>
                         </p>
-                        <textarea id="comment" name="comment" rows="3" style="width: 289px; height: 80px;"></textarea>
-                        <input type="submit" value="Add" class="btn btn-default" />
+                        
+                        <textarea class="form-control" id="comment" name="comment" style="width: 400px" rows="3"></textarea>
+                        <p><p><input type="submit" value="Add" class="btn btn-info" /></p></p>
                     </form>
                 }
             </div>

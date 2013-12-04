@@ -92,8 +92,6 @@ namespace ShoppingGuide.Controllers
 
                     // Take a note that the user Comment.
                     ViewBag.alreadyCommented = true;
-
-
                 }
             }
             return RedirectToAction("Details", new { id = id });
