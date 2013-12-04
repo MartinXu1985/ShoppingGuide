@@ -60,6 +60,45 @@ namespace ShoppingGuide.Controllers
             return View(product);
         }
 
+        // 
+        public ActionResult DetailsUpdate(int id)
+        {
+            var result = db.Comments.SqlQuery("Select * from Comments").ToList();
+            var prodResult = db.Product.SqlQuery("Select * from Products WHERE  ProductId ='" + id + "'").ToList();
+            var myFlag = false;
+            foreach (Comments cmt in prodResult[0].Comments)
+                if (cmt.Username == User.Identity.Name)
+                    myFlag = true;
+            if (myFlag == false)
+            {
+                Product product = db.Product.Find(id);
+                if (Request["comment"] != null)
+                {
+                    //String sqlString = "INSERT into Comments values (" +Request["comment"] +","+ id +","+ User.Identity.Name+")";
+                    //db.Database.ExecuteSqlCommand(sqlString);
+                    Comments c = new Comments();
+                    c.CommentId = result.Count + 1;
+                    c.Comment = Request["comment"];
+                    c.Username = User.Identity.Name;
+
+                    if (product.Comments == null)
+                    {
+                        product.Comments = new List<Comments>();
+                    }
+
+                    product.Comments.Add(c);
+                    db.Comments.Add(c);
+                    db.SaveChanges();
+
+                    // Take a note that the user Comment.
+                    ViewBag.alreadyCommented = true;
+
+
+                }
+            }
+            return RedirectToAction("Details", new { id = id });
+        }
+
         // GET: /Store/Rate
         [Authorize]
         public ActionResult Rate(String rating, int iD)
