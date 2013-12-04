@@ -32,6 +32,10 @@
       <mvcSiteMapNode title="Account" controller="Account" action="ExternalLoginFailure"/>
       <mvcSiteMapNode title="Account" controller="Account" action="ExternalLoginConfirmation"/>
     </mvcSiteMapNode>
+    <mvcSiteMapNode title="Shopping Cart" controller="ShoppingCart" action="Index" >
+      <mvcSiteMapNode title="Add to Cart" controller="ShoppingCart" action="AddToCart" id="1"/>
+      <mvcSiteMapNode title="Checkout" controller="Checkout" action="AddressAndPayment"/>
+    </mvcSiteMapNode>
   </mvcSiteMapNode>
 
 </mvcSiteMap>

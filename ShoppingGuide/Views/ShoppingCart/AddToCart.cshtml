@@ -1,0 +1,16 @@
+﻿@model ShoppingGuide.Models.Product
+
+@{
+    ViewBag.Title = "Add Product";
+}
+
+<fieldset class="form-horizontal">
+    <legend><b><i>@Html.DisplayFor(model => model.Name)</i></b> successfully added to cart.</legend>
+
+        <div class="pagination-centered">
+            <ul class="pager">
+                <li>@Html.ActionLink("Continue Shopping", "Index", "Home", routeValues: null, htmlAttributes: null)</li>
+                <li>@Html.ActionLink("View Cart", "Index")</li>
+            </ul>
+        </div>
+</fieldset>

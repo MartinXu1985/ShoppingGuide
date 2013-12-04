@@ -28,10 +28,10 @@ namespace ShoppingGuide.Controllers
             return View(viewModel);
         }
         //
-        // GET: /Store/AddToCart/5
+        // GET: /ShoppingCart/AddToCart/5
         public ActionResult AddToCart(int id)
         {
-            // Retrieve the album from the database
+            // Retrieve the product from the database
             var addedProduct = storeDB.Product
                 .Single(Product => Product.ProductId == id);
 
@@ -41,7 +41,7 @@ namespace ShoppingGuide.Controllers
             cart.AddToCart(addedProduct);
 
             // Go back to the main store page for more shopping
-            return RedirectToAction("Index");
+            return View(addedProduct);
         }
         //
         // AJAX: /ShoppingCart/RemoveFromCart/5
@@ -53,7 +53,7 @@ namespace ShoppingGuide.Controllers
 
             // Get the name of the album to display confirmation
             string ProductName = storeDB.Carts
-                .Single(item => item.RecordId == id).Product.Title;
+                .Single(item => item.RecordId == id).AssociatedProduct.Title;
 
             // Remove from cart
             int itemCount = cart.RemoveFromCart(id);

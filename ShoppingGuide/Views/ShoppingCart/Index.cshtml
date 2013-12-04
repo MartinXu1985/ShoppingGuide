@@ -55,18 +55,16 @@ type="text/javascript"></script>
     {
         <tr id="row-@item.RecordId">
             <td>
-                @Html.ActionLink(item.Product.Title, "Details", "Store", new { id = item.ProductId }, null)
+                @Html.ActionLink(item.AssociatedProduct.Name, "Details", "Store", new { id = item.ProductId }, null)
             </td>
             <td>
-                @item.Product.Price
+                @item.AssociatedProduct.Price
             </td>
             <td id="item-count-@item.RecordId">
                 @item.Count
             </td>
             <td>
-                <a href="#" class="RemoveLink"
-data-id="@item.RecordId">Remove
-from cart</a>
+                <a href="#" class="RemoveLink" data-id="@item.RecordId">Remove from cart</a>
             </td>
         </tr>
     }

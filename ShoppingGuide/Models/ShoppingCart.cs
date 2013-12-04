@@ -21,22 +21,22 @@ namespace ShoppingGuide.Models
         {
             return GetCart(controller.HttpContext);
         }
-        public void AddToCart(Product Product)
+        public void AddToCart(Product newProduct)
         {
-            // Get the matching cart and album instances
+            // Get the matching cart and product instances
             var cartItem = storeDB.Carts.SingleOrDefault(
                 c => c.CartId == ShoppingCartId
-                && c.ProductId == Product.ProductId);
+                && c.ProductId == newProduct.ProductId);
 
             if (cartItem == null)
             {
                 // Create a new cart item if no cart item exists
                 cartItem = new Cart
                 {
-                    ProductId = Product.ProductId,
+                    ProductId = newProduct.ProductId,
                     CartId = ShoppingCartId,
                     Count = 1,
-                    DateCreated = DateTime.Now
+                    DateCreated = DateTime.Now,
                 };
                 storeDB.Carts.Add(cartItem);
             }
@@ -108,7 +108,7 @@ namespace ShoppingGuide.Models
             decimal? total = (from cartItems in storeDB.Carts
                               where cartItems.CartId == ShoppingCartId
                               select (int?)cartItems.Count *
-                              cartItems.Product.Price).Sum();
+                              cartItems.AssociatedProduct.Price).Sum();
 
             return total ?? decimal.Zero;
         }
@@ -125,11 +125,11 @@ namespace ShoppingGuide.Models
                 {
                     ProductId = item.ProductId,
                     OrderId = order.OrderId,
-                    UnitPrice = System.Convert.ToDecimal(item.Product.Price),
+                    UnitPrice = System.Convert.ToDecimal(item.AssociatedProduct.Price),
                     Quantity = item.Count
                 };
                 // Set the order total of the shopping cart
-                orderTotal += ((System.Convert.ToDecimal(item.Count)) * (System.Convert.ToDecimal(item.Product.Price)));
+                orderTotal += ((System.Convert.ToDecimal(item.Count)) * (System.Convert.ToDecimal(item.AssociatedProduct.Price)));
 
                 storeDB.OrderDetails.Add(orderDetail);
 
