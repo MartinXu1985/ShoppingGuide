@@ -643,3 +643,4 @@ C:\Users\Parth\Documents\GitHub\ShoppingGuide\ShoppingGuide\bin\ru-ru\JavaScript
 C:\Users\Parth\Documents\GitHub\ShoppingGuide\ShoppingGuide\obj\Debug\ShoppingGuide.csproj.App.config
 C:\Users\Parth\Documents\GitHub\ShoppingGuide\ShoppingGuide\obj\Debug\ShoppingGuide.dll
 C:\Users\Parth\Documents\GitHub\ShoppingGuide\ShoppingGuide\obj\Debug\ShoppingGuide.pdb
+C:\Users\Parth\Documents\GitHub\ShoppingGuide\ShoppingGuide\obj\Debug\ShoppingGuide.csprojResolveAssemblyReference.cache
