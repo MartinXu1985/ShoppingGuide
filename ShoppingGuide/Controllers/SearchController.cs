@@ -25,6 +25,7 @@ namespace ShoppingGuide.Controllers
         {
             var result = db.Product.SqlQuery("SELECT * FROM Products WHERE Name LIKE " + "'%" + search + "%'").ToList();
             ViewBag.searchQuery = search;
+            ViewBag.abc = search;
 
             return View(result);
         }
