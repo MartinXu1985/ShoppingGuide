@@ -43,33 +43,19 @@ namespace ShoppingGuide.Controllers
             // Go back to the main store page for more shopping
             return View(addedProduct);
         }
+
         //
         // AJAX: /ShoppingCart/RemoveFromCart/5
-        [HttpPost]
         public ActionResult RemoveFromCart(int id)
         {
             // Remove the item from the cart
             var cart = ShoppingCart.GetCart(this.HttpContext);
 
-            // Get the name of the album to display confirmation
-            string ProductName = storeDB.Carts
-                .Single(item => item.RecordId == id).AssociatedProduct.Title;
-
             // Remove from cart
             int itemCount = cart.RemoveFromCart(id);
-
-            // Display the confirmation message
-            var results = new ShoppingCartRemoveViewModel
-            {
-                Message = Server.HtmlEncode(ProductName) +
-                    " has been removed from your shopping cart.",
-                CartTotal = System.Convert.ToDecimal(cart.GetTotal()),
-                CartCount = cart.GetCount(),
-                ItemCount = itemCount,
-                DeleteId = id
-            };
-            return Json(results);
+            return RedirectToAction("Index");
         }
+
         //
         // GET: /ShoppingCart/CartSummary
         [ChildActionOnly]

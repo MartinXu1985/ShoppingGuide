@@ -9,7 +9,7 @@ namespace MvcMusicStore.Controllers
     public class CheckoutController : Controller
     {
         ShoppingGuideDB storeDB = new ShoppingGuideDB();
-        const string PromoCode = "FREE";
+        const string PromoCode = "SJSUFREE";
         //
         // GET: /Checkout/AddressAndPayment
         public ActionResult AddressAndPayment()
@@ -19,32 +19,21 @@ namespace MvcMusicStore.Controllers
         //
         // POST: /Checkout/AddressAndPayment
         [HttpPost]
-        public ActionResult AddressAndPayment(FormCollection values)
+        public ActionResult AddressAndPayment(FormCollection values, String EnteredPromoCode)
         {
             var order = new Order();
             TryUpdateModel(order);
 
             try
             {
-                if (string.Equals(values["PromoCode"], PromoCode,
-                    StringComparison.OrdinalIgnoreCase) == false)
+                if (PromoCode.Equals(EnteredPromoCode))
                 {
-                    return View(order);
+                    return RedirectToAction("Complete");
                 }
                 else
                 {
-                    order.Username = User.Identity.Name;
-                    //order.OrderDate = DateTime.Now;
-
-                    //Save Order
-                    storeDB.Orders.Add(order);
-                    storeDB.SaveChanges();
-                    //Process the order
-                    var cart = ShoppingCart.GetCart(this.HttpContext);
-                    cart.CreateOrder(order);
-
-                    return RedirectToAction("Complete",
-                        new { id = order.OrderId });
+                    ViewBag.Error = "Invalid promo code!";
+                    return View(order);
                 }
             }
             catch
@@ -55,21 +44,13 @@ namespace MvcMusicStore.Controllers
         }
         //
         // GET: /Checkout/Complete
-        public ActionResult Complete(int id)
+        public ActionResult Complete()
         {
-            // Validate customer owns this order
-            bool isValid = storeDB.Orders.Any(
-                o => o.OrderId == id &&
-                o.Username == User.Identity.Name);
+            // Clear the cart
+            var cart = ShoppingCart.GetCart(this.HttpContext);
+            cart.EmptyCart();
 
-            if (isValid)
-            {
-                return View(id);
-            }
-            else
-            {
-                return View("Error");
-            }
+            return View();
         }
     }
 }

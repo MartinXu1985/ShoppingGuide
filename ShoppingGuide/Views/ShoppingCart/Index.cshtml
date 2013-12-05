@@ -30,52 +30,60 @@ type="text/javascript"></script>
         });
     });
 </script>
-<h3>
-    <em>Review</em> your cart:
- </h3>
-<p class="button">
-    @Html.ActionLink("Checkout", "AddressAndPayment", "Checkout")
-</p>
-<div id="update-message">
-</div>
-<table>
-    <tr>
-        <th>
-            Product Name
-        </th>
-        <th>
-            Price (each)
-        </th>
-        <th>
-            Quantity
-        </th>
-        <th></th>
-    </tr>
-    @foreach (var item in Model.CartItems)
-    {
-        <tr id="row-@item.RecordId">
-            <td>
-                @Html.ActionLink(item.AssociatedProduct.Name, "Details", "Store", new { id = item.ProductId }, null)
-            </td>
-            <td>
-                @item.AssociatedProduct.Price
-            </td>
-            <td id="item-count-@item.RecordId">
-                @item.Count
-            </td>
-            
-        </tr>
+
+<fieldset class="form-horizontal">
+    <legend><b><i>Review</i></b> your cart.</legend>
+
+    <div id="update-message">
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading"><b>Cart</b></div>
+        <table class="table table-hover">
+            <tr>
+                <th>Product Name
+                </th>
+                <th>Price
+                </th>
+                <th>Quantity
+                </th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model.CartItems)
+            {
+                <tr id="row-@item.RecordId">
+                    <td>
+                        @Html.ActionLink(item.AssociatedProduct.Name, "Details", "Store", new { id = item.ProductId }, null)
+                    </td>
+                    <td>
+                        $@item.AssociatedProduct.Price
+                    </td>
+                    <td id="item-count-@item.RecordId">
+                        @item.Count
+                    </td>
+                    <td>
+                        <a href="~/ShoppingCart/RemoveFromCart/@item.RecordId">Remove</a>
+                    </td>
+                </tr>
     }
-    <tr>
-        <td>
-            Total
-        </td>
-        <td>
-        </td>
-        <td>
-        </td>
-        <td id="cart-total">
-            @Model.CartTotal
-        </td>
-    </tr>
-</table>
+            <tr>
+                <td><b>Total</b>
+                </td>
+                <td id="cart-total">
+                    <b>$@Model.CartTotal</b>
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+
+    <hr />
+    <ul class="pager">
+        <li class="previous"><a href="~/Home/Index">&larr; Continue Shopping</a></li>
+        @if (Model.CartItems.Count > 0)
+        {
+            <li class="next"><a href="~/Checkout/AddressAndPayment">Checkout &rarr;</a></li>
+        }
+    </ul>
+
+</fieldset>
