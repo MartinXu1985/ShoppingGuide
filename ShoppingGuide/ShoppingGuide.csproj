@@ -238,6 +238,11 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\Uploads\Google Chromecast Digital HD Media Streamer.JPG" />
+    <Content Include="Content\Uploads\iPad-Air.jpg" />
+    <Content Include="Content\Uploads\iPhone 5s.jpg" />
+    <Content Include="Content\Uploads\Kodak EASYSHARE C195 14.0 MP Digital Camera.JPG" />
+    <Content Include="Content\Uploads\PS4.jpg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
@@ -318,7 +323,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Uploads\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
