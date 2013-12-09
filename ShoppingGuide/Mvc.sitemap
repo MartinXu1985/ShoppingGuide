@@ -29,8 +29,9 @@
       <mvcSiteMapNode title="Login" controller="Account" action="Login"/>
       <mvcSiteMapNode title="Manage" controller="Account" action="Manage"/>
       <mvcSiteMapNode title="Register" controller="Account" action="Register"/>
-      <mvcSiteMapNode title="Account" controller="Account" action="ExternalLoginFailure"/>
-      <mvcSiteMapNode title="Account" controller="Account" action="ExternalLoginConfirmation"/>
+      <mvcSiteMapNode title="External" controller="Account" action="ExternalLoginFailure"/>
+      <mvcSiteMapNode title="External" controller="Account" action="ExternalLoginConfirmation"/>
+      <mvcSiteMapNode title="External" controller="Account" action="ExternalLoginCallback"/>
     </mvcSiteMapNode>
     <mvcSiteMapNode title="Shopping Cart" controller="ShoppingCart" action="Index" >
       <mvcSiteMapNode title="Add to Cart" controller="ShoppingCart" action="AddToCart" id="1"/>
