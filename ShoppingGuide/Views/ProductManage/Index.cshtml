@@ -19,17 +19,11 @@
     <div class="panel-heading"><b>Products</b></div>
     <table class="table table-hover">
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CategoryId)
-            </th>
             <th style="width: 10%">
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th style="width: 10%">
                 @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th style="width: 10%">
-                @Html.DisplayNameFor(model => model.ProductUrl)
             </th>
             <th style="width: 40%">
                 @Html.DisplayNameFor(model => model.Description)
@@ -44,16 +38,10 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CategoryId)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductUrl)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Description)

@@ -9,8 +9,6 @@ namespace ShoppingGuide.Models
     {
         public int ProductId { get; set; }
 
-        public int CategoryId { get; set; }
-
         public string Name { get; set; }
 
         public decimal Price { get; set; }
@@ -18,8 +16,6 @@ namespace ShoppingGuide.Models
         public double Rating { get; set; }
         public virtual List<Comments> Comments { get; set; }
         public int Votes { get; set; }
-
-        public string ProductUrl { get; set; }
 
         public string Description { get; set; }
 
